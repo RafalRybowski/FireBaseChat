@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.epiklp.firebasechat.utils.IFirebaseLoginDone
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.pd.chocobar.ChocoBar
@@ -12,7 +13,23 @@ import kotlinx.android.synthetic.main.activity_main.*
 
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), IFirebaseLoginDone {
+
+    @SuppressLint("WrongConstant")
+    override fun onFireBaseLoginSuccess() {
+        ChocoBar.builder().setActivity(this@MainActivity).green().setText("Login Success").setDuration(ChocoBar.LENGTH_SHORT).show()
+        updateUI(mAuth.currentUser)
+    }
+
+    @SuppressLint("WrongConstant")
+    override fun onFireBaseLoginFail() {
+        ChocoBar.builder().setActivity(this@MainActivity).red().setText("Login Failed").setDuration(ChocoBar.LENGTH_SHORT).show()
+        login_login.error = "Wrong Login"
+        login_login.requestFocus()
+        login_password.error = "Wrong Password"
+        login_password.requestFocus()
+        updateUI(null)
+    }
 
     private lateinit var mAuth: FirebaseAuth
 
@@ -33,14 +50,22 @@ class MainActivity : AppCompatActivity() {
     private fun singUp() {
         val email = login_login.text.toString()
         val password = login_password.text.toString()
+        if(email.isEmpty()){
+            login_login.error = "Login Can't Be Empty"
+            login_login.requestFocus()
+            return
+        }
 
+        if(password.isEmpty()){
+            login_password.error = "Login Can't Be Empty"
+            login_password.requestFocus()
+            return
+        }
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this){task ->
             if(task.isSuccessful){
-                ChocoBar.builder().setActivity(this@MainActivity).green().setText("Login Success").setDuration(ChocoBar.LENGTH_SHORT).show()
-                val user = mAuth.currentUser
-                updateUI(user)
+                onFireBaseLoginSuccess()
             }else{
-                ChocoBar.builder().setActivity(this@MainActivity).red().setText("Login Failed").setDuration(ChocoBar.LENGTH_SHORT).show()
+                onFireBaseLoginFail()
             }
         }
     }

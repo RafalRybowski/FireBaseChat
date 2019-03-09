@@ -9,8 +9,9 @@ class SplashScreen : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        Handler().postDelayed(Runnable{
+        Handler().postDelayed({
             startActivity(Intent(this@SplashScreen, MainActivity::class.java))
+            finish()
         }, 3000)
     }
 }

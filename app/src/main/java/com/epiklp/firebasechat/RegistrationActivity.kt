@@ -1,17 +1,31 @@
 package com.epiklp.firebasechat
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Patterns
 import com.epiklp.firebasechat.Model.User
+import com.epiklp.firebasechat.utils.IFirebaseRegisterDone
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.FirebaseDatabase
 import com.pd.chocobar.ChocoBar
 import kotlinx.android.synthetic.main.activity_registration.*
 
-class RegistrationActivity : AppCompatActivity() {
+class RegistrationActivity : AppCompatActivity(), IFirebaseRegisterDone {
+
+    @SuppressLint("WrongConstant")
+    override fun onFireBaseRegisterSuccess() {
+        ChocoBar.builder().setActivity(this@RegistrationActivity).green().setText("Registration Success").setDuration(ChocoBar.LENGTH_SHORT).show()
+        updateUI(auth.currentUser)
+    }
+
+    @SuppressLint("WrongConstant")
+    override fun onFireBaseRegisterFail() {
+        ChocoBar.builder().setActivity(this@RegistrationActivity).red().setText("Can't register").setDuration(ChocoBar.LENGTH_SHORT).show()
+        updateUI(null)
+    }
 
     private lateinit var auth: FirebaseAuth
 
@@ -21,7 +35,9 @@ class RegistrationActivity : AppCompatActivity() {
 
         auth = FirebaseAuth.getInstance()
 
-        button_sign_up.setOnClickListener{register()}
+        button_sign_up.setOnClickListener{ register() }
+
+        registration_sign.setOnClickListener { finish() }
 
     }
 
@@ -81,21 +97,18 @@ class RegistrationActivity : AppCompatActivity() {
     fun registerAccount(login: String, mail: String, password: String) {
         auth.createUserWithEmailAndPassword(mail, password).addOnCompleteListener(this){ task ->
             if(task.isSuccessful){
-                val user = User(login, mail, "", "")
+                val user = User(login, mail, "", "", true, null, null)
 
                 FirebaseDatabase.getInstance().getReference("Users").
-                    child(FirebaseAuth.getInstance().currentUser!!.uid).setValue(user).addOnCompleteListener(this){ task ->
+                    child(FirebaseAuth.getInstance().currentUser!!.uid).setValue(user).addOnCompleteListener(this){
                     if(task.isSuccessful){
-                        ChocoBar.builder().setActivity(this@RegistrationActivity).green().setText("Registration Success").setDuration(ChocoBar.LENGTH_SHORT).show()
+                        onFireBaseRegisterSuccess()
                     } else {
-                        ChocoBar.builder().setActivity(this@RegistrationActivity).red().setText("Can't register").setDuration(ChocoBar.LENGTH_SHORT).show()
+                        onFireBaseRegisterFail()
                     }
                 }
-
-                updateUI(auth.currentUser)
             } else {
-                ChocoBar.builder().setActivity(this@RegistrationActivity).red().setText("Can't register").setDuration(ChocoBar.LENGTH_SHORT).show()
-                updateUI(null)
+                onFireBaseRegisterFail()
             }
 
         }
