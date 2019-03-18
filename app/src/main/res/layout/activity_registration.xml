@@ -157,7 +157,7 @@
 
                 <TextView
                         android:id="@+id/registration_sign"
-                        android:textColor="@color/colorBackground"
+                        android:textColor="@color/toolbarColor"
                         android:layout_marginBottom="4dp"
                         android:text="I have a account"
                         android:textStyle="bold|italic"

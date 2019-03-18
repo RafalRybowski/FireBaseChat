@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.util.Patterns
 import com.epiklp.firebasechat.Model.User
 import com.epiklp.firebasechat.utils.IFirebaseRegisterDone
@@ -18,7 +19,9 @@ class RegistrationActivity : AppCompatActivity(), IFirebaseRegisterDone {
     @SuppressLint("WrongConstant")
     override fun onFireBaseRegisterSuccess() {
         ChocoBar.builder().setActivity(this@RegistrationActivity).green().setText("Registration Success").setDuration(ChocoBar.LENGTH_SHORT).show()
-        updateUI(auth.currentUser)
+        Handler().postDelayed({
+            updateUI(auth.currentUser)
+        }, 1000)
     }
 
     @SuppressLint("WrongConstant")
@@ -99,8 +102,8 @@ class RegistrationActivity : AppCompatActivity(), IFirebaseRegisterDone {
             if(task.isSuccessful){
                 val user = User(login, mail, "", "", true, null, null)
 
-                FirebaseDatabase.getInstance().getReference("Users").
-                    child(FirebaseAuth.getInstance().currentUser!!.uid).setValue(user).addOnCompleteListener(this){
+                FirebaseDatabase.getInstance().getReference("Users").child(FirebaseAuth.getInstance().currentUser!!.uid)
+                    .setValue(user).addOnCompleteListener(this){
                     if(task.isSuccessful){
                         onFireBaseRegisterSuccess()
                     } else {
@@ -110,7 +113,6 @@ class RegistrationActivity : AppCompatActivity(), IFirebaseRegisterDone {
             } else {
                 onFireBaseRegisterFail()
             }
-
         }
     }
 

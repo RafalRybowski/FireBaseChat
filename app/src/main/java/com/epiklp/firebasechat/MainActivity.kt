@@ -5,9 +5,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import com.epiklp.firebasechat.Model.User
+import com.epiklp.firebasechat.utils.Common
 import com.epiklp.firebasechat.utils.IFirebaseLoginDone
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
 import com.pd.chocobar.ChocoBar
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -79,6 +82,20 @@ class MainActivity : AppCompatActivity(), IFirebaseLoginDone {
 
     private fun updateUI(currentUser: FirebaseUser?) {
         if(currentUser != null){
+            FirebaseDatabase.getInstance().getReference("Users").child(currentUser.uid)
+                .addListenerForSingleValueEvent( object : ValueEventListener{
+                    override fun onCancelled(p0: DatabaseError) {
+                        Log.e("Firebase:", "error!")
+                    }
+
+                    override fun onDataChange(p0: DataSnapshot) {
+                        if(p0.exists()){
+                            Common.user = p0.getValue(User::class.java)!!
+                        }
+                    }
+
+                })
+
             startActivity(Intent(this@MainActivity, ChatActivity::class.java))
         }
     }
