@@ -43,6 +43,11 @@ dependencies {
     //ChocoBar
     implementation 'com.github.Pradyuman7:ChocoBar:V1.0'
 
+    //CircleImageView
+    implementation 'de.hdodenhof:circleimageview:3.0.0'
+
+    api 'com.roughike:bottom-bar:2.3.1'
+
 
 }
 

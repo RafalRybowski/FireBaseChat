@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import com.epiklp.firebasechat.Model.User
 import com.epiklp.firebasechat.utils.Common
 import com.epiklp.firebasechat.utils.IFirebaseLoginDone
@@ -99,6 +100,4 @@ class MainActivity : AppCompatActivity(), IFirebaseLoginDone {
             startActivity(Intent(this@MainActivity, ChatActivity::class.java))
         }
     }
-
-
 }

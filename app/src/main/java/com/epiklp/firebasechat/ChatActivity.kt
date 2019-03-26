@@ -1,34 +1,60 @@
 package com.epiklp.firebasechat
 
+
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
-import androidx.appcompat.app.ActionBar
-import androidx.appcompat.widget.Toolbar
-import androidx.core.view.GravityCompat
-import androidx.drawerlayout.widget.DrawerLayout
-import kotlinx.android.synthetic.main.activity_chat.*
+import kotlinx.android.synthetic.main.activity_chatv2.*
+import androidx.viewpager.widget.ViewPager
+import com.epiklp.firebasechat.Adapter.myViewPageAdapter
+
+
+
 
 class ChatActivity : AppCompatActivity() {
 
-    private lateinit var drawerLayout: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat)
+        setContentView(R.layout.activity_chatv2)
 
+        initBottomBar()
+    }
 
-        val toolbar : Toolbar = findViewById(R.id.toolbarAction)
-
-        setSupportActionBar(toolbar)
-
-        val actionbar : ActionBar? = supportActionBar
-        actionbar?.apply {
-            setDisplayShowTitleEnabled(false)
-            setDisplayHomeAsUpEnabled(true)
-            setHomeAsUpIndicator(R.drawable.ic_menu_black_24dp)
+    private fun initBottomBar() {
+        initViewPager()
+        bottomBar.setOnTabSelectListener { tabId ->
+            when(tabId){
+                R.id.friends -> {
+                    viewPager.setCurrentItem(0, true)
+                }
+                R.id.Chats -> {
+                    viewPager.setCurrentItem(1, true)
+                }
+                R.id.Profile -> {
+                    viewPager.setCurrentItem(2, true)
+                }
+            }
         }
     }
-    
+
+    private fun initViewPager(){
+        viewPager.adapter = myViewPageAdapter(supportFragmentManager, 3)
+        viewPager.addOnPageChangeListener(object : ViewPager.OnPageChangeListener{
+            override fun onPageScrollStateChanged(state: Int) {
+
+            }
+
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
+
+            }
+
+            override fun onPageSelected(position: Int) {
+                bottomBar.selectTabAtPosition(position)
+            }
+
+        })
+    }
+
+
 }

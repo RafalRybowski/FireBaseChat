@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+            android:padding="10dp"
+            android:background="@color/toolbarColor"
+            android:weightSum="5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+        <EditText
+                android:id="@+id/editText_server"
+                android:textColorHint="@android:color/white"
+                android:textColorLink="@color/bgColor"
+                android:padding="5sp"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:hint="Search Chat"
+                android:layout_weight="5"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"/>
+        <ImageView
+                android:id="@+id/add_image_server"
+                android:src="@drawable/ic_add_black_24dp"
+                android:background="@drawable/background_add_button"
+                android:layout_weight="1"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:clickable="true"/>
+    </LinearLayout>
+    <TextView
+            android:gravity="center"
+            android:textSize="40sp"
+            android:textAlignment="center"
+            android:id="@id/missing_text"
+            android:visibility="gone"
+            android:textColor="@android:color/black"
+            android:text="No friends for you"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    <ScrollView
+            android:id="@id/scroll_view_servers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+</LinearLayout>

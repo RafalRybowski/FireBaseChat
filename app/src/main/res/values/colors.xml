@@ -2,7 +2,8 @@
 <resources>
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
-    <color name="colorAccentToolbar">#08f598</color>
-    <color name="toolbarColor">#06bed8</color>
+    <color name="colorAccent">#F9AA33</color>
+    <color name="colorAccentToolbar">#1565C0</color>
+    <color name="toolbarColor">#344955</color>
+    <color name="bgColor">#F9AA33</color>
 </resources>

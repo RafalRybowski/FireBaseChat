@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.util.Patterns
+import android.view.View
 import com.epiklp.firebasechat.Model.User
 import com.epiklp.firebasechat.utils.IFirebaseRegisterDone
 import com.google.firebase.auth.FirebaseAuth
@@ -35,6 +36,7 @@ class RegistrationActivity : AppCompatActivity(), IFirebaseRegisterDone {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
+
 
         auth = FirebaseAuth.getInstance()
 
@@ -115,6 +117,7 @@ class RegistrationActivity : AppCompatActivity(), IFirebaseRegisterDone {
             }
         }
     }
+
 
 }
 

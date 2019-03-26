@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <tabs>
+        <tab
+                id="@+id/friends"
+                icon="@drawable/ic_people_black_24dp"
+                title="Friends"
+                activeColor="@color/bgColor"/>
+        <tab
+                id="@+id/Chats"
+                icon="@drawable/ic_mode_comment_black_24dp"
+                title="Chats"
+                activeColor="@color/bgColor"/>
+        <tab
+                id="@+id/Profile"
+                icon="@drawable/ic_settings_black_24dp"
+                title="Profile"
+                activeColor="@color/bgColor"/>
+    </tabs>
+</PreferenceScreen>
