@@ -1,6 +1,7 @@
 package com.epiklp.firebasechat.Adapter
 
 
+import android.content.Context
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
@@ -13,17 +14,21 @@ class myViewPageAdapter(fm : FragmentManager, numberOfTabs : Int) : FragmentStat
 
     var number : Int = numberOfTabs
     lateinit var fragment : Fragment
+    var friendFragment = FriendFragment()
+    var serverFragment = ServerFragment()
+    var profileFragment = ProfileFragment()
+
 
     override fun getItem(position: Int): Fragment {
         when(position){
             0 -> {
-                fragment = FriendFragment()
+                fragment = friendFragment
             }
             1 -> {
-                fragment = ServerFragment()
+                fragment = serverFragment
             }
             2 -> {
-                fragment = ProfileFragment()
+                fragment = profileFragment
             }
         }
         return fragment
