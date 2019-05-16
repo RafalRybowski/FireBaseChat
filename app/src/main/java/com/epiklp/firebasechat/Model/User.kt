@@ -8,12 +8,12 @@ class User : Serializable{
     var phone : String = ""
     var photo : String = ""
     var online : Boolean = false
-    var servers : ArrayList<String>? = null
-    var friend : ArrayList<String>? = null
+    var servers : MutableList<String> = mutableListOf()
+    var friend : MutableList<String> = mutableListOf()
 
     constructor(){}
 
-    constructor(login: String, email: String, phone : String, photo : String, online : Boolean, servers : ArrayList<String>?, friend : ArrayList<String>?){
+    constructor(login: String, email: String, phone : String, photo : String, online : Boolean, servers : MutableList<String> = mutableListOf(), friend : MutableList<String> = mutableListOf()){
         this.login = login
         this.email = email
         this.phone = phone
@@ -22,5 +22,7 @@ class User : Serializable{
         this.servers = servers
         this.friend = friend
     }
+
+    fun toFriend() : Friend = Friend(login, email, phone, photo)
 
 }

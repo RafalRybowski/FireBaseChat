@@ -5,5 +5,7 @@ import com.epiklp.firebasechat.Model.User
 
 object Common{
     lateinit var user : User
-    var friends : List<Friend> = emptyList()
+    var friends : MutableMap<String,Friend> = mutableMapOf()
+
+
 }
